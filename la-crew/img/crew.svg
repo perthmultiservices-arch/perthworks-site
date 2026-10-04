@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Illustration de la coordination de la Crew">
+  <defs><clipPath id="c"><circle cx="120" cy="120" r="120"/></clipPath></defs>
+  <g clip-path="url(#c)">
+  <rect width="240" height="240" fill="#0D1B2A"/>
+  <circle cx="190" cy="44" r="54" fill="#fff" opacity=".10"/>
+  <circle cx="34" cy="206" r="40" fill="#fff" opacity=".07"/>
+  
+  <circle cx="120" cy="120" r="30" fill="#C9A84C"/>
+  <path d="M106 120 l10 10 l20 -22" stroke="#0D1B2A" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <g stroke="#C9A84C" stroke-opacity=".5" stroke-width="3">
+    <line x1="120" y1="120" x2="120" y2="48"/><line x1="120" y1="120" x2="188" y2="98"/>
+    <line x1="120" y1="120" x2="162" y2="178"/><line x1="120" y1="120" x2="78" y2="178"/><line x1="120" y1="120" x2="52" y2="98"/>
+  </g>
+  <circle cx="120" cy="48" r="18" fill="#2A7F74"/><circle cx="188" cy="98" r="18" fill="#C9A84C" stroke="#0D1B2A" stroke-width="3"/>
+  <circle cx="162" cy="178" r="18" fill="#D9725B"/><circle cx="78" cy="178" r="18" fill="#5B4B8A"/><circle cx="52" cy="98" r="18" fill="#2F5D8C"/>
+  </g>
+</svg>
