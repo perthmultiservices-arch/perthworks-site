@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EMBER — fire-driven fine dining. A design portfolio demo by Perth Multiservices Web Studio.">
+<title>EMBER — Dinner, Lit by Fire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --charcoal:#1a1512; --charcoal-soft:#241d18; --amber:#D97B29; --amber-light:#F0A356; --amber-pale:#F4DEC2;
+    --cream:#F3E9DD; --grey:#9c8f7f; --grey-dark:#3a2f26;
+    --serif:'Fraunces', Georgia, serif; --sans:'Inter', system-ui, sans-serif;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);background:var(--charcoal);color:var(--cream);line-height:1.7;overflow-x:hidden;}
+  img{display:block;max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 2rem;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s var(--ease),padding .4s var(--ease);}
+  nav.scrolled{background:rgba(26,21,18,.92);backdrop-filter:blur(14px);padding:1.1rem 2rem;border-bottom:1px solid rgba(217,123,41,.18);}
+  .nav-logo{font-family:var(--serif);font-weight:600;font-size:1.6rem;letter-spacing:.04em;text-decoration:none;color:var(--cream);}
+  .nav-logo span{color:var(--amber);}
+  .nav-links{display:flex;gap:2.6rem;list-style:none;align-items:center;}
+  .nav-links a{text-decoration:none;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,233,221,.72);transition:color .3s;}
+  .nav-links a:hover{color:var(--amber-light);}
+  .nav-cta{background:var(--amber);color:var(--charcoal);padding:.6rem 1.4rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:background .3s;}
+  .nav-cta:hover{background:var(--amber-light);}
+  .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:210;}
+  .nav-burger span{width:26px;height:1px;background:var(--cream);}
+  .mobile-menu{position:fixed;inset:0;background:var(--charcoal);z-index:199;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transform:translateY(-100%);transition:transform .5s var(--ease);}
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{font-family:var(--serif);font-size:1.9rem;text-decoration:none;color:var(--cream);}
+
+  .hero{position:relative;height:100vh;display:flex;align-items:flex-end;overflow:hidden;}
+  .hero-bg{position:absolute;inset:-10% 0 0 0;background:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2000&q=80') center/cover;will-change:transform;}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,21,18,.2) 0%,rgba(26,21,18,.5) 55%,rgba(26,21,18,.97) 100%);}
+  .hero-content{position:relative;z-index:2;padding:0 2rem 5.5rem;width:100%;}
+  .hero-eyebrow{font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber-light);margin-bottom:1.3rem;}
+  .hero h1{font-family:var(--serif);font-weight:500;font-style:italic;font-size:clamp(2.8rem,7.5vw,6.4rem);line-height:1.05;max-width:900px;}
+  .hero-sub{margin-top:1.6rem;color:rgba(243,233,221,.65);font-size:1.05rem;font-weight:300;max-width:460px;}
+  .scroll-cue{position:absolute;bottom:2.4rem;right:2.5rem;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.6rem;color:rgba(243,233,221,.5);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;}
+  .scroll-cue .line{width:1px;height:46px;background:linear-gradient(to bottom,rgba(217,123,41,.9),transparent);animation:scrollpulse 2.2s infinite;}
+  @keyframes scrollpulse{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}50.01%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+  .reveal{opacity:0;transform:translateY(46px);transition:opacity 1s var(--ease),transform 1s var(--ease);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .delay-1.in-view{transition-delay:.12s;}
+  .delay-2.in-view{transition-delay:.24s;}
+  .delay-3.in-view{transition-delay:.36s;}
+
+  .manifesto{padding:9rem 0 7rem;text-align:center;border-top:1px solid var(--grey-dark);}
+  .manifesto .label{font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);margin-bottom:1.6rem;}
+  .manifesto p{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3.8vw,2.8rem);line-height:1.4;max-width:860px;margin:0 auto;color:var(--amber-pale);}
+
+  .stats{border-top:1px solid var(--grey-dark);border-bottom:1px solid var(--grey-dark);padding:3.6rem 0;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;}
+  .stats-grid div{border-right:1px solid var(--grey-dark);}
+  .stats-grid div:last-child{border-right:none;}
+  .stat-num{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,4.6vw,3.2rem);color:var(--amber);}
+  .stat-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-top:.5rem;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5rem;padding:9rem 0;}
+  .split.reverse .split-media{order:2;}
+  .split-eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:1.1rem;}
+  .split-text h2{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3.6vw,3rem);line-height:1.18;margin-bottom:1.4rem;}
+  .split-text p{color:var(--grey);font-weight:300;max-width:440px;margin-bottom:1rem;}
+  .split-media{position:relative;border-radius:2px;overflow:hidden;aspect-ratio:4/5;}
+  .split-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.18);transition:transform 1.8s var(--ease);filter:saturate(1.1) contrast(1.05);}
+  .split-media:hover img{transform:scale(1.3);}
+
+  .gallery-head{padding:8rem 0 3rem;text-align:center;}
+  .gallery-head h2{font-family:var(--serif);font-weight:500;font-style:italic;font-size:clamp(2.2rem,4.6vw,3.6rem);}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;padding-bottom:9rem;}
+  .tilt{position:relative;overflow:hidden;border-radius:2px;aspect-ratio:3/4;transition:transform .25s ease-out;}
+  .tilt img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease);filter:saturate(1.1);}
+  .tilt:hover img{transform:scale(1.12);}
+  .tilt-caption{position:absolute;left:0;right:0;bottom:0;padding:1.5rem;background:linear-gradient(180deg,transparent,rgba(0,0,0,.9));font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--amber-light);}
+
+  .quote-section{position:relative;padding:11rem 0;text-align:center;overflow:hidden;}
+  .quote-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2000&q=80') center/cover;will-change:transform;}
+  .quote-bg::after{content:'';position:absolute;inset:0;background:rgba(15,11,9,.78);}
+  .quote-section blockquote{position:relative;z-index:2;font-family:var(--serif);font-weight:500;font-style:italic;font-size:clamp(1.6rem,4vw,3rem);max-width:860px;margin:0 auto;line-height:1.35;color:var(--amber-pale);}
+  .quote-section cite{position:relative;z-index:2;display:block;margin-top:1.6rem;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--grey);font-style:normal;}
+
+  .cta{padding:9rem 0;text-align:center;}
+  .cta-eyebrow{font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);margin-bottom:1.1rem;}
+  .cta h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,5.4vw,4.4rem);margin-bottom:1.7rem;}
+  .btn-primary{display:inline-flex;align-items:center;gap:.8rem;background:var(--amber);color:var(--charcoal);padding:1.05rem 2.6rem;text-decoration:none;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;transition:background .3s,transform .3s;}
+  .btn-primary:hover{background:var(--amber-light);transform:translateY(-2px);}
+
+  footer{border-top:1px solid var(--grey-dark);padding:3rem 0;text-align:center;color:var(--grey);font-size:.82rem;}
+  footer a{color:var(--amber-light);text-decoration:none;}
+  .demo-badge{position:fixed;left:1.2rem;bottom:1.2rem;z-index:150;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);border:1px solid rgba(217,123,41,.3);padding:.6rem 1rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;}
+  .demo-badge a{color:var(--amber-light);text-decoration:none;}
+
+  @media (max-width:900px){
+    .nav-links{display:none;}
+    .nav-burger{display:flex;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .stats-grid div:nth-child(2){border-right:none;}
+    .split,.split.reverse{grid-template-columns:1fr;gap:2rem;padding:5rem 0;}
+    .split.reverse .split-media{order:0;}
+    .gallery{grid-template-columns:1fr 1fr;padding-bottom:5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">EMB<span>E</span>R</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#kitchen">Kitchen</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reserve" class="nav-cta">Reserve a Table</a></li>
+  </ul>
+  <div class="nav-burger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="#menu">Menu</a>
+  <a href="#kitchen">Kitchen</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#reserve">Reserve</a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg" data-parallax="0.3"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Open Flame · 14 Seats · Nightly</div>
+    <h1>Hungry before<br>you've seen<br>the menu.</h1>
+    <p class="hero-sub">Everything at Ember passes over coal before it reaches the plate. No gas, no induction — just fire, patience, and a chef who refuses to apologise for either.</p>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
+</section>
+
+<section class="manifesto">
+  <div class="wrap">
+    <div class="label reveal">The Philosophy</div>
+    <p class="reveal delay-1">"Smoke is a seasoning. We just happen to use more of it than anyone thinks is reasonable."</p>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-grid">
+    <div class="reveal"><div class="stat-num"><span data-counter="14">0</span></div><div class="stat-label">Seats, nightly</div></div>
+    <div class="reveal delay-1"><div class="stat-num"><span data-counter="9">0</span></div><div class="stat-label">Course tasting</div></div>
+    <div class="reveal delay-2"><div class="stat-num"><span data-counter="620">0</span>°</div><div class="stat-label">Peak coal heat</div></div>
+    <div class="reveal delay-3"><div class="stat-num"><span data-counter="3">0</span></div><div class="stat-label">Weeks to book</div></div>
+  </div>
+</section>
+
+<section id="menu" class="split">
+  <div class="split-media reveal"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1200&q=80" alt="Ember plated dish"></div>
+  <div class="split-text reveal delay-1">
+    <div class="split-eyebrow">The Tasting</div>
+    <h2>Nine courses. No menu printed in advance.</h2>
+    <p>What arrives depends on what the fire allowed that day. We plan the structure — smoke, char, ash, ember — and let the market and the coals fill in the rest.</p>
+  </div>
+</section>
+
+<section class="split reverse">
+  <div class="split-media reveal"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80" alt="Chef plating at Ember"></div>
+  <div class="split-text reveal delay-1">
+    <div class="split-eyebrow" id="kitchen">The Kitchen</div>
+    <h2>You eat at the counter. The fire is the view.</h2>
+    <p>There's no pass, no hidden kitchen. Fourteen seats wrap the hearth so every guest watches their own plate get built, three feet away, in heat that makes the air shimmer.</p>
+  </div>
+</section>
+
+<section class="split">
+  <div class="split-media reveal"><img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1200&q=80" alt="Ember dining room ambience"></div>
+  <div class="split-text reveal delay-1">
+    <div class="split-eyebrow">The Room</div>
+    <h2>Lit almost entirely by the coals themselves.</h2>
+    <p>We run two candles and the hearth. Everything else is shadow — on purpose. It's the only lighting plan that makes the food look exactly like it tastes.</p>
+  </div>
+</section>
+
+<section id="gallery" class="gallery-head">
+  <div class="split-eyebrow" style="justify-content:center;display:flex;">From the Pass</div>
+  <h2 class="reveal">Recent Plates</h2>
+</section>
+<section class="wrap gallery">
+  <div class="tilt reveal"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="Ember course one"><div class="tilt-caption">Charred Leek, Ash Oil</div></div>
+  <div class="tilt reveal delay-1"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=900&q=80" alt="Ember course two"><div class="tilt-caption">Embered Short Rib</div></div>
+  <div class="tilt reveal delay-2"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80" alt="Ember course three"><div class="tilt-caption">Smoked Stone Fruit</div></div>
+</section>
+
+<section class="quote-section">
+  <div class="quote-bg" data-parallax="0.18"></div>
+  <blockquote class="reveal">"I smelled dinner from the sidewalk and I hadn't even opened the door yet."</blockquote>
+  <cite class="reveal delay-1">— Guest, Tuesday Seating</cite>
+</section>
+
+<section id="reserve" class="cta">
+  <div class="wrap">
+    <div class="cta-eyebrow reveal">Bookings Open 21 Days Out</div>
+    <h2 class="reveal delay-1">The hearth seats<br>fourteen. Tonight.</h2>
+    <a href="#" class="btn-primary reveal delay-2">Reserve a Table →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">EMBER — Fire-driven dining. Demo design by <a href="../portfolio.html">Perth Multiservices Web Studio</a>.</div>
+</footer>
+
+<div class="demo-badge">Design demo — <a href="../portfolio.html">back to portfolio</a></div>
+
+<script>
+(function(){
+  const nav = document.querySelector('nav');
+  const onScroll = () => { if(window.scrollY > 40) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  const parallaxEls = document.querySelectorAll('[data-parallax]');
+  let ticking = false;
+  function updateParallax(){
+    parallaxEls.forEach(el => {
+      const speed = parseFloat(el.dataset.parallax) || 0.3;
+      const rect = el.getBoundingClientRect();
+      const offset = rect.top * speed;
+      el.style.transform = `translate3d(0, ${offset}px, 0) scale(1.15)`;
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => { if(!ticking){ requestAnimationFrame(updateParallax); ticking = true; } }, {passive:true});
+  updateParallax();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  const counters = document.querySelectorAll('[data-counter]');
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseFloat(el.dataset.counter);
+        const dec = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
+        const dur = 1400; let startTime = null;
+        function step(ts){ if(!startTime) startTime = ts; const p = Math.min((ts-startTime)/dur, 1); const val = target * (1 - Math.pow(1-p, 3)); el.textContent = val.toFixed(dec); if(p < 1) requestAnimationFrame(step); else el.textContent = target.toFixed(dec); }
+        requestAnimationFrame(step);
+        cio.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => cio.observe(el));
+
+  document.querySelectorAll('.tilt').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - 0.5;
+      const y = (e.clientY - r.top)/r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateZ(10px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  const burger = document.querySelector('.nav-burger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if(burger && mobileMenu){
+    burger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobileMenu.classList.remove('open'); }));
+  }
+})();
+</script>
+</body>
+</html>

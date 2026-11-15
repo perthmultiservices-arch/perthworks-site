@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Perth Multiservices Web Studio — premium, animated website design. See our demo builds across automotive, horology, hospitality, real estate and marine.">
+<title>Web Design Portfolio — Perth Multiservices</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0D1B2A; --navy-mid:#1A2E44; --navy-light:#243D57;
+    --gold:#C9A84C; --gold-light:#E2C577; --gold-pale:#F5EDD6;
+    --teal:#2A7F74; --teal-light:#3AA396;
+    --cream:#F8F5EE; --white:#FFFFFF;
+    --text-dark:#0D1B2A; --text-mid:#4A5568; --text-light:#718096;
+    --serif:'DM Serif Display', Georgia, serif; --sans:'DM Sans', system-ui, sans-serif;
+    --transition:0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);background:var(--cream);color:var(--text-dark);line-height:1.6;overflow-x:hidden;}
+  img{display:block;max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 2rem;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:background var(--transition),backdrop-filter var(--transition);}
+  nav.scrolled{background:rgba(13,27,42,.95);backdrop-filter:blur(12px);}
+  .nav-logo{font-family:var(--serif);font-size:1.5rem;color:var(--white);text-decoration:none;letter-spacing:.02em;}
+  .nav-logo span{color:var(--gold);}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.875rem;font-weight:400;letter-spacing:.05em;text-transform:uppercase;transition:color var(--transition);}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:.6rem 1.4rem;border-radius:2px;}
+  .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:110;}
+  .nav-burger span{width:24px;height:2px;background:var(--white);}
+  .mobile-menu{position:fixed;inset:0;background:var(--navy);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transform:translateY(-100%);transition:transform .5s cubic-bezier(.4,0,.2,1);}
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{font-family:var(--serif);font-size:1.8rem;text-decoration:none;color:var(--white);}
+
+  /* HERO */
+  .hero{position:relative;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-mid) 100%);color:var(--white);padding:9rem 0 7rem;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-30%;right:-10%;width:60%;height:140%;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 70%);}
+  .hero-eyebrow{position:relative;z-index:1;font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem;}
+  .hero-eyebrow::before{content:'';width:34px;height:1px;background:var(--gold-light);}
+  .hero h1{position:relative;z-index:1;font-family:var(--serif);font-size:clamp(2.4rem,5.6vw,4.4rem);line-height:1.15;max-width:760px;}
+  .hero h1 em{font-style:italic;color:var(--gold-light);}
+  .hero p{position:relative;z-index:1;margin-top:1.4rem;max-width:560px;color:rgba(255,255,255,.72);font-size:1.08rem;font-weight:300;}
+
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .delay-1.in-view{transition-delay:.1s;}
+  .delay-2.in-view{transition-delay:.2s;}
+  .delay-3.in-view{transition-delay:.3s;}
+  .delay-4.in-view{transition-delay:.4s;}
+
+  /* INTRO STRIP */
+  .intro{padding:5rem 0 2rem;text-align:center;}
+  .intro p{font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,1.8rem);max-width:820px;margin:0 auto;color:var(--navy);line-height:1.5;}
+  .intro p span{color:var(--teal);}
+
+  /* GRID */
+  .grid-head{padding:3rem 0 1rem;}
+  .grid-head .tag{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.6rem;}
+  .grid-head h2{font-family:var(--serif);font-size:clamp(1.8rem,3.6vw,2.6rem);color:var(--navy);}
+
+  .demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;padding:2rem 0 6rem;}
+  .demo-card{position:relative;background:var(--navy);border-radius:10px;overflow:hidden;text-decoration:none;color:var(--white);display:block;box-shadow:0 10px 30px rgba(13,27,42,.12);transition:transform .4s var(--transition),box-shadow .4s var(--transition);}
+  .demo-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(13,27,42,.22);}
+  .demo-thumb{position:relative;aspect-ratio:4/5;overflow:hidden;}
+  .demo-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1);}
+  .demo-card:hover .demo-thumb img{transform:scale(1.08);}
+  .demo-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,27,42,0) 40%,rgba(13,27,42,.92) 100%);}
+  .demo-body{position:absolute;left:0;right:0;bottom:0;padding:1.6rem;}
+  .demo-industry{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.4rem;}
+  .demo-title{font-family:var(--serif);font-size:1.6rem;margin-bottom:.4rem;}
+  .demo-desc{font-size:.85rem;color:rgba(255,255,255,.72);font-weight:300;}
+  .demo-arrow{position:absolute;top:1.2rem;right:1.2rem;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:background .3s,transform .3s;}
+  .demo-card:hover .demo-arrow{background:var(--gold);transform:rotate(45deg);}
+  .demo-arrow svg{width:16px;height:16px;}
+
+  /* HOW WE WORK */
+  .process{background:var(--white);padding:7rem 0;}
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem;}
+  .process-step{text-align:left;}
+  .process-num{font-family:var(--serif);font-size:2.6rem;color:var(--gold);margin-bottom:.8rem;}
+  .process-step h3{font-size:1.05rem;margin-bottom:.5rem;color:var(--navy);}
+  .process-step p{font-size:.9rem;color:var(--text-light);font-weight:300;}
+
+  /* CTA */
+  .cta{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-mid) 100%);color:var(--white);padding:7rem 0;text-align:center;}
+  .cta-eyebrow{font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1rem;}
+  .cta h2{font-family:var(--serif);font-size:clamp(2rem,4.6vw,3.4rem);margin-bottom:1.5rem;}
+  .cta p{color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 2rem;font-weight:300;}
+  .btn-primary{display:inline-flex;align-items:center;gap:.7rem;background:var(--gold);color:var(--navy);padding:1rem 2.4rem;text-decoration:none;font-size:.85rem;font-weight:600;letter-spacing:.04em;border-radius:3px;transition:background .3s,transform .3s;}
+  .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+  .cta-contacts{margin-top:1.8rem;display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;font-size:.9rem;color:rgba(255,255,255,.75);}
+  .cta-contacts a{text-decoration:none;color:var(--gold-light);}
+
+  footer{background:var(--navy);color:rgba(255,255,255,.55);padding:2.4rem 0;text-align:center;font-size:.85rem;}
+  footer a{color:var(--gold-light);text-decoration:none;}
+
+  @media (max-width:900px){
+    .nav-links{display:none;}
+    .nav-burger{display:flex;}
+    .demo-grid{grid-template-columns:1fr 1fr;}
+    .process-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:600px){
+    .demo-grid{grid-template-columns:1fr;}
+    .process-grid{grid-template-columns:1fr;}
+    .hero{padding:8rem 0 5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Perth <span>Multiservices</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="portfolio.html">Web Design</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="nav-burger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="index.html#services">Services</a>
+  <a href="portfolio.html">Web Design</a>
+  <a href="index.html#contact">Get a Quote</a>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">New Service · Web Design</div>
+    <h1 class="reveal">We don't build sites from templates.<br>We build them to <em>feel</em> like the brand.</h1>
+    <p class="reveal delay-1">Perth Multiservices is now building premium, animated websites — the same craftsmanship we bring to a renovation, applied to the screen. Below are five demo builds, one per industry, so you can see exactly what "premium" looks like in motion.</p>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="reveal">No themes. No drag-and-drop builders. Every demo below is <span>real, hand-written code</span> — built around what the brand needs, not what a template allows.</p>
+  </div>
+</section>
+
+<section class="wrap grid-head">
+  <div class="tag reveal">Selected Demos</div>
+  <h2 class="reveal delay-1">One site per industry</h2>
+</section>
+
+<section class="wrap demo-grid">
+  <a href="demos/veloce.html" target="_blank" rel="noopener" class="demo-card reveal">
+    <div class="demo-thumb"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="VELOCE — automotive demo site"></div>
+    <div class="demo-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
+    <div class="demo-body">
+      <div class="demo-industry">Automotive</div>
+      <div class="demo-title">VELOCE</div>
+      <div class="demo-desc">Paint that catches the light — a handbuilt performance car brand.</div>
+    </div>
+  </a>
+  <a href="demos/horae.html" target="_blank" rel="noopener" class="demo-card reveal delay-1">
+    <div class="demo-thumb"><img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80" alt="HORAE — luxury watch demo site"></div>
+    <div class="demo-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
+    <div class="demo-body">
+      <div class="demo-industry">Horology</div>
+      <div class="demo-title">HORAE</div>
+      <div class="demo-desc">Feel the weight of the case — a Swiss-made watch maison.</div>
+    </div>
+  </a>
+  <a href="demos/ember.html" target="_blank" rel="noopener" class="demo-card reveal delay-2">
+    <div class="demo-thumb"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="EMBER — fine dining demo site"></div>
+    <div class="demo-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
+    <div class="demo-body">
+      <div class="demo-industry">Hospitality</div>
+      <div class="demo-title">EMBER</div>
+      <div class="demo-desc">Hungry before you've seen the menu — a fire-driven tasting counter.</div>
+    </div>
+  </a>
+  <a href="demos/vista.html" target="_blank" rel="noopener" class="demo-card reveal">
+    <div class="demo-thumb"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="VISTA — real estate demo site"></div>
+    <div class="demo-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
+    <div class="demo-body">
+      <div class="demo-industry">Real Estate</div>
+      <div class="demo-title">VISTA</div>
+      <div class="demo-desc">Scrolls like an actual walkthrough — curated residences, room by room.</div>
+    </div>
+  </a>
+  <a href="demos/meridian.html" target="_blank" rel="noopener" class="demo-card reveal delay-1">
+    <div class="demo-thumb"><img src="https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=800&q=80" alt="MERIDIAN — yacht demo site"></div>
+    <div class="demo-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
+    <div class="demo-body">
+      <div class="demo-industry">Marine</div>
+      <div class="demo-title">MERIDIAN</div>
+      <div class="demo-desc">The water moves with you — yachts built in Fremantle.</div>
+    </div>
+  </a>
+  <div class="demo-card reveal delay-2" style="display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;background:var(--navy-mid);border:1px dashed rgba(255,255,255,.2);">
+    <div style="text-align:center;padding:2rem;">
+      <div class="demo-industry">Your Industry</div>
+      <div class="demo-title" style="font-size:1.3rem;">Next one could be yours.</div>
+      <a href="index.html#contact" style="display:inline-block;margin-top:1rem;font-size:.8rem;color:var(--gold-light);text-decoration:none;border-bottom:1px solid var(--gold-light);">Start a project →</a>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap">
+    <div class="tag reveal" style="font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);">How It Works</div>
+    <h2 class="reveal delay-1" style="font-family:var(--serif);font-size:clamp(1.8rem,3.6vw,2.6rem);color:var(--navy);margin-top:.6rem;">From brief to launch</h2>
+    <div class="process-grid">
+      <div class="process-step reveal"><div class="process-num">01</div><h3>Brief</h3><p>We talk through your brand, your customers, and what the site needs to make them feel.</p></div>
+      <div class="process-step reveal delay-1"><div class="process-num">02</div><h3>Design</h3><p>A single hand-coded concept, built around your content — never a theme, never a template.</p></div>
+      <div class="process-step reveal delay-2"><div class="process-num">03</div><h3>Motion</h3><p>Scroll animation, parallax and detail passes, tuned until the site feels as premium as the brand.</p></div>
+      <div class="process-step reveal delay-3"><div class="process-num">04</div><h3>Launch</h3><p>Fast, mobile-ready, and yours outright — no subscription, no builder lock-in.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact-cta">
+  <div class="wrap">
+    <div class="cta-eyebrow reveal">Let's Build Yours</div>
+    <h2 class="reveal delay-1">Ready for a site<br>like these?</h2>
+    <p class="reveal delay-2">Tell us about your business and we'll put together a concept — no obligation, fixed-price quote within 48 hours.</p>
+    <a href="index.html#contact" class="btn-primary reveal delay-3">Start Your Project →</a>
+    <div class="cta-contacts reveal delay-4">
+      <a href="tel:0406637407">0406 637 407</a>
+      <a href="mailto:perth.multiservices@gmail.com">perth.multiservices@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Perth Multiservices Web Studio · <a href="index.html">Back to Home</a></div>
+</footer>
+
+<script>
+(function(){
+  const nav = document.querySelector('nav');
+  const onScroll = () => { if(window.scrollY > 40) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  const burger = document.querySelector('.nav-burger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if(burger && mobileMenu){
+    burger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobileMenu.classList.remove('open'); }));
+  }
+})();
+</script>
+</body>
+</html>
